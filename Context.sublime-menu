@@ -1,0 +1,35 @@
+[
+	{
+		"id": "stringencode",
+		"caption": "StringEncode",
+		"children":
+		[
+			{ "command": "string_encode_paste", "caption": "StringEncode: Paste Encoded..." },
+			{ "caption" : "-" },
+			{ "command": "html_entitize", "caption": "HTML Entitize" },
+			{ "command": "html_deentitize", "caption": "HTML Deentitize" },
+			{ "command": "xml_entitize", "caption": "XML Entitize" },
+			{ "command": "xml_deentitize", "caption": "XML Deentitize" },
+			{ "command": "safe_html_entitize", "caption": "Safe HTML Entitize" },
+			{ "command": "safe_html_deentitize", "caption": "Safe HTML Deentitize" },
+			{ "caption" : "-" },
+			{ "command": "url_encode", "caption": "URL Encode" },
+			{ "command": "url_decode", "caption": "URL Decode" },
+			{ "command": "base64_encode", "caption": "Base64 Encode" },
+			{ "command": "base64_decode", "caption": "Base64 Decode" },
+			{ "command": "md5_encode", "caption": "MD5" },
+			{ "command": "sha256_encode", "caption": "Sha256" },
+			{ "command": "sha512_encode", "caption": "Sha512" },
+			{ "caption" : "-" },
+			{ "command": "json_escape", "caption": "JSON Escape" },
+			{ "command": "json_unescape", "caption": "JSON Unescape" },
+			{ "command": "escape_regex", "caption": "Escape regex" },
+			{ "command": "escape_like", "caption": "Escape LIKE" },
+			{ "caption" : "-" },
+			{ "command": "dec_hex", "caption": "Decimal to Hexadecimal" },
+			{ "command": "hex_dec", "caption": "Hexadecimal to Decimal" },
+			{ "command": "unicode_hex", "caption": "Unicode to Hexadecimal" },
+			{ "command": "hex_unicode", "caption": "Hexadecimal to Unicode" }
+		]
+	}
+]

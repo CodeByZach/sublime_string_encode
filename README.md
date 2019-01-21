@@ -1,7 +1,7 @@
 StringEncode
 ============
 
-Encodes text.  "Encode" in this context refers to HTML entities or URL encoding, not character encodings.  Most of these commands work in both directions (e.g. you can encode *to* html entities, or *from* html entities).
+Encodes text. "Encode" in this context refers to HTML entities or URL encoding, not character encodings. Most of these commands work in both directions (e.g. you can encode *to* html entities, or *from* html entities).
 
 - Html entities
 - Css (e.g. unicode characters)
@@ -15,7 +15,7 @@ Encodes text.  "Encode" in this context refers to HTML entities or URL encoding,
 - Hexadecimal / Decimal
 - Unicode Hexadecimal representation
 
-This plugin was intended to be used with selections, but if you *don't* have any text selected, it will act on *the entire document*.  This can be handy (if you're base64-encoding a file, for instance), but also have unintended consequences.  For instance, you probably should not use `URL Decode` on an entire text document.
+This plugin was intended to be used with selections, but if you *don't* have any text selected, it will act on *the entire document*. This can be handy (if you're base64-encoding a file, for instance), but also have unintended consequences. For instance, you probably should not use `URL Decode` on an entire text document.
 
 You can also encode the clipboard, use the `string_encode_paste` command, and you will be presented with a menu to choose the encoding, and the clipboard will be encoded and inserted.
 
@@ -27,12 +27,28 @@ Installation
 Or:
 
 1. Open the Sublime Text Packages folder
-    - OS X: ~/Library/Application Support/Sublime Text 3/Packages/
-    - Windows: %APPDATA%/Sublime Text 3/Packages/
-    - Linux: ~/.Sublime Text 3/Packages/ or ~/.config/sublime-text-3/Packages
-
-2. clone this repo
-3. Install keymaps for the commands (see Example.sublime-keymap for my preferred keys)
+	- OS X: ~/Library/Application Support/Sublime Text 3/Packages/
+	- Windows: %APPDATA%/Sublime Text 3/Packages/
+	- Linux: ~/.Sublime Text 3/Packages/ or ~/.config/sublime-text-3/Packages
+2. Clone this repo
+3. Install keymaps for the commands (see example below)
+```
+[
+	{ "keys": ["super+shift+7"], "command": "xml_entitize", "scope": "text.xml" },
+	{ "keys": ["super+ctrl+7"], "command": "xml_deentitize", "scope": "text.xml" },
+	{ "keys": ["super+shift+7"], "command": "html_entitize" },
+	{ "keys": ["super+ctrl+7"], "command": "html_deentitize" },
+	{ "keys": ["super+shift+8"], "command": "json_escape" },
+	{ "keys": ["super+ctrl+8"], "command": "json_unescape" },
+	{ "keys": ["super+shift+6"], "command": "base64_encode" },
+	{ "keys": ["super+ctrl+6"], "command": "base64_decode" },
+	{ "keys": ["super+shift+5"], "command": "url_encode" },
+	// { "keys": ["super+shift+5"], "command": "url_encode", "args": {"old_school": true} },
+	{ "keys": ["super+ctrl+5"], "command": "url_decode" },
+	{ "keys": ["ctrl+shift+r"], "command": "escape_regex" },
+	{ "keys": ["super+ctrl+3"], "command": "hex_dec" }
+]
+```
 
 Commands
 --------
@@ -44,8 +60,7 @@ Commands
 `html_deentitize`: Converts HTML entities to a character
 
 `url_encode`: Uses urllib.quote to escape special URL characters.
-- Accepts an `old_school` argument (default: `True`).  Setting it to `False`
-  will return `%20` instead of `+` when encoding spaces.
+- Accepts an `old_school` argument (default: `True`). Setting it to `False` will return `%20` instead of `+` when encoding spaces.
 
 `url_decode`: Uses urllib.unquote to convert escaped URL characters
 
