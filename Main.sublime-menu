@@ -72,6 +72,17 @@
 							},
 							{ "caption": "-" },
 							{
+								"caption": "Context Menu",
+								"command": "string_encode_edit_settings",
+								"args":
+								{
+									"base_file": "${packages}/StringEncode/Context.sublime-menu",
+									"user_file": "${packages}/User/StringEncode/Context.sublime-menu",
+									"default": "[\n$0\n]\n"
+								}
+							},
+							{ "caption": "-" },
+							{
 								"caption": "README",
 								"command": "open_file", "args":
 								{
