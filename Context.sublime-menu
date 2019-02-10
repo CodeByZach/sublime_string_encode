@@ -1,10 +1,10 @@
 [
 	{
-		"id": "stringencode",
-		"caption": "StringEncode",
+		"id": "context-convert",
+		"caption": "String Encode",
 		"children":
 		[
-			{ "command": "string_encode_paste", "caption": "StringEncode: Paste Encoded..." },
+			{ "command": "string_encode_paste", "caption": "String Encode: Paste Encoded..." },
 			{ "caption" : "-" },
 			{ "command": "html_entitize", "caption": "HTML Entitize" },
 			{ "command": "html_deentitize", "caption": "HTML Deentitize" },

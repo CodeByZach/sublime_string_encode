@@ -11,11 +11,11 @@
 				"children":
 				[
 					{
-						"id": "stringencode",
-						"caption": "StringEncode",
+						"id": "context-convert",
+						"caption": "String Encode",
 						"children":
 						[
-							{ "command": "string_encode_paste", "caption": "StringEncode: Paste Encoded..." },
+							{ "command": "string_encode_paste", "caption": "Paste Encoded..." },
 							{ "caption" : "-" },
 							{ "command": "html_entitize", "caption": "HTML Entitize" },
 							{ "command": "html_deentitize", "caption": "HTML Deentitize" },
@@ -60,34 +60,91 @@
 				"children":
 				[
 					{
-						"caption": "StringEncode",
+						"caption": "String Encode",
 						"children":
 						[
 							{
 								"caption": "Settings",
-								"command": "edit_settings", "args": {
+								"command": "z_edit_settings",
+								"args":
+								{
 									"base_file": "${packages}/StringEncode/string_encode.sublime-settings",
-									"default": "{\n$0\n}\n"
+									"user_file": "${packages}/User/StringEncode/string_encode..sublime-settings",
+									"default": "{\n\t$0\n}\n"
 								}
 							},
 							{ "caption": "-" },
 							{
-								"caption": "Context Menu",
-								"command": "string_encode_edit_settings",
+								"caption": "Key Bindings",
+								"command": "z_edit_settings",
 								"args":
 								{
-									"base_file": "${packages}/StringEncode/Context.sublime-menu",
-									"user_file": "${packages}/User/StringEncode/Context.sublime-menu",
-									"default": "[\n$0\n]\n"
+									"base_file": "${packages}/StringEncode/Default (${platform}).sublime-keymap",
+									"default": "[\n\t$0\n]\n"
+								}
+							},
+							{ "caption": "-" },
+							{
+								"caption": "Menus",
+								"children":
+								[
+									{
+										"caption": "Context Menu",
+										"command": "z_edit_settings",
+										"args":
+										{
+											"file": "${packages}/StringEncode/Context.sublime-menu",
+											"is_parent_setting": "1",
+											"contents": "[\n\t$0\n]\n"
+										}
+									},
+									{
+										"caption": "Side Bar Menu",
+										"command": "z_edit_settings",
+										"args":
+										{
+											"file": "${packages}/StringEncode/Side Bar.sublime-menu",
+											"is_parent_setting": "1",
+											"contents": "[\n\t$0\n]\n"
+										}
+									},
+									{
+										"caption": "Tab Menu",
+										"command": "z_edit_settings",
+										"args":
+										{
+											"file": "${packages}/StringEncode/Tab Context.sublime-menu",
+											"is_parent_setting": "1",
+											"contents": "[\n\t$0\n]\n"
+										}
+									},
+									{
+										"caption": "Main Menu",
+										"command": "z_edit_settings",
+										"args":
+										{
+											"file": "${packages}/StringEncode/Main.sublime-menu",
+											"is_parent_setting": "1",
+											"contents": "[\n\t$0\n]\n"
+										}
+									}
+								]
+							},
+							{
+								"caption": "Commands",
+								"command": "z_edit_settings",
+								"args":
+								{
+									"file": "${packages}/StringEncode/Default.sublime-commands",
+									"is_parent_setting": "1",
+									"default": "[\n\t$0\n]\n"
 								}
 							},
 							{ "caption": "-" },
 							{
 								"caption": "README",
-								"command": "open_file", "args":
-								{
-									"file": "${packages}/StringEncode/README.md"
-								}
+								"command": "open_file",
+								"args": { "file": "${packages}/StringEncode/README.md" }
 							}
 						]
 					}
