@@ -4,7 +4,7 @@
 		"caption": "StringEncode",
 		"children":
 		[
-			{ "command": "string_encode_paste", "caption": "String Encode: Paste Encoded..." },
+			{ "command": "string_encode_paste", "caption": "Paste Encoded..." },
 			{ "caption" : "-" },
 			{ "command": "html_entitize", "caption": "HTML Entitize" },
 			{ "command": "html_deentitize", "caption": "HTML Deentitize" },
