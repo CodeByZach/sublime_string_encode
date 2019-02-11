@@ -1,7 +1,7 @@
 [
+	{ "caption": "-", "id": "context-convert" },
 	{
-		"id": "context-convert",
-		"caption": "String Encode",
+		"caption": "StringEncode",
 		"children":
 		[
 			{ "command": "string_encode_paste", "caption": "String Encode: Paste Encoded..." },

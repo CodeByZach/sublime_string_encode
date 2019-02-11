@@ -12,7 +12,7 @@
 				[
 					{
 						"id": "context-convert",
-						"caption": "String Encode",
+						"caption": "StringEncode",
 						"children":
 						[
 							{ "command": "string_encode_paste", "caption": "Paste Encoded..." },
@@ -60,16 +60,15 @@
 				"children":
 				[
 					{
-						"caption": "String Encode",
+						"caption": "StringEncode",
 						"children":
 						[
 							{
 								"caption": "Settings",
-								"command": "z_edit_settings",
+								"command": "edit_settings",
 								"args":
 								{
-									"base_file": "${packages}/StringEncode/string_encode.sublime-settings",
-									"user_file": "${packages}/User/StringEncode/string_encode..sublime-settings",
+									"base_file": "${packages}/StringEncode/StringEncode.sublime-settings",
 									"default": "{\n\t$0\n}\n"
 								}
 							},
