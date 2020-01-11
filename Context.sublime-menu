@@ -29,7 +29,8 @@
 			{ "command": "dec_hex", "caption": "Decimal to Hexadecimal" },
 			{ "command": "hex_dec", "caption": "Hexadecimal to Decimal" },
 			{ "command": "unicode_hex", "caption": "Unicode to Hexadecimal" },
-			{ "command": "hex_unicode", "caption": "Hexadecimal to Unicode" }
+			{ "command": "hex_unicode", "caption": "Hexadecimal to Unicode" },
+			{ "command": "unicode_escape", "caption": "Decode Escaped Unicode" }
 		]
 	}
 ]
