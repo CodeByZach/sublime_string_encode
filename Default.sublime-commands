@@ -22,5 +22,6 @@
 	{ "caption": "StringEncode: Decimal to Hexadecimal", "command": "dec_hex" },
 	{ "caption": "StringEncode: Hexadecimal to Decimal", "command": "hex_dec" },
 	{ "caption": "StringEncode: Unicode to Hexadecimal", "command": "unicode_hex" },
-	{ "caption": "StringEncode: Hexadecimal to Unicode", "command": "hex_unicode" }
+	{ "caption": "StringEncode: Hexadecimal to Unicode", "command": "hex_unicode" },
+	{ "caption": "StringEncode: Decode Escaped Unicode", "command": "unicode_escape" }
 ]
