@@ -23,5 +23,7 @@
 	{ "caption": "StringEncode: Hexadecimal to Decimal", "command": "hex_dec" },
 	{ "caption": "StringEncode: Unicode to Hexadecimal", "command": "unicode_hex" },
 	{ "caption": "StringEncode: Hexadecimal to Unicode", "command": "hex_unicode" },
-	{ "caption": "StringEncode: Decode Escaped Unicode", "command": "unicode_escape" }
+	{ "caption": "StringEncode: Decode Escaped Unicode", "command": "unicode_escape" },
+	{ "caption": "StringEncode: GZip and Base64 Encode", "command": "gzip64_encode" },
+	{ "caption": "StringEncode: GZip and Base64 Decode", "command": "gzip64_decode" }
 ]
