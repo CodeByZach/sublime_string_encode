@@ -1,5 +1,6 @@
 StringEncode
 ============
+[![Latest Release](https://img.shields.io/github/tag/EatBreatheCode/sublime_string_encode.svg?label=version)](https://github.com/EatBreatheCode/sublime_string_encode/releases)
 
 Encodes text. "Encode" in this context refers to HTML entities or URL encoding, not character encodings. Most of these commands work in both directions (e.g. you can encode *to* html entities, or *from* html entities).
 
