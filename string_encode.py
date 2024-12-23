@@ -1,13 +1,13 @@
 # coding: utf8
 import base64
+import codecs
 import gzip
-import re
-import json
 import hashlib
-import sys
+import json
+import re
 import sublime
 import sublime_plugin
-import codecs
+import sys
 
 from .stringencode.escape_table import (
     html_escape_table,
@@ -20,12 +20,50 @@ import urllib.parse
 quote_plus = urllib.parse.quote_plus
 unquote_plus = urllib.parse.unquote_plus
 
+__all__ = [
+    "StringEncodePaste",
+    "Gzip64EncodeCommand",
+    "Gzip64DecodeCommand",
+    "UnicodeEscapeCommand",
+    "HtmlEntitizeCommand",
+    "HtmlDeentitizeCommand",
+    "CssEscapeCommand",
+    "CssUnescapeCommand",
+    "SafeHtmlEntitizeCommand",
+    "SafeHtmlDeentitizeCommand",
+    "XmlEntitizeCommand",
+    "XmlDeentitizeCommand",
+    "JsonEscapeCommand",
+    "JsonUnescapeCommand",
+    "UrlEncodeCommand",
+    "UrlDecodeCommand",
+    "Base16EncodeCommand",
+    "Base16DecodeCommand",
+    "Base32EncodeCommand",
+    "Base32DecodeCommand",
+    "Base64EncodeCommand",
+    "Base64DecodeCommand",
+    "Md5EncodeCommand",
+    "Sha1EncodeCommand",
+    "Sha384EncodeCommand",
+    "Sha256EncodeCommand",
+    "Sha512EncodeCommand",
+    "EscapeRegexCommand",
+    "EscapeLikeCommand",
+    "HexDecCommand",
+    "DecHexCommand",
+    "UnicodeHexCommand",
+    "HexUnicodeCommand",
+]
 
-try:
-    unichr(32)
-except NameError:
-    def unichr(val):
-        return chr(val)
+def pad64(value):
+    mod = len(value) % 4
+    if mod == 3:
+        return value + '='
+    elif mod == 2:
+        return value + '=='
+    return value
+
 
 class StringEncodePaste(sublime_plugin.WindowCommand):
     def run(self, **kwargs):
@@ -43,10 +81,16 @@ class StringEncodePaste(sublime_plugin.WindowCommand):
             ('Json Unescape', 'json_unescape'),
             ('Url Encode', 'url_encode'),
             ('Url Decode', 'url_decode'),
+            ('Base16 Encode', 'base16_encode'),
+            ('Base16 Decode', 'base16_decode'),
+            ('Base32 Encode', 'base32_encode'),
+            ('Base32 Decode', 'base32_decode'),
             ('Base64 Encode', 'base64_encode'),
             ('Base64 Decode', 'base64_decode'),
             ('Md5 Encode', 'md5_encode'),
+            ('Sha1 Encode', 'sha1_encode'),
             ('Sha256 Encode', 'sha256_encode'),
+            ('Sha384 Encode', 'sha384_encode'),
             ('Sha512 Encode', 'sha512_encode'),
             ('Escape Regex', 'escape_regex'),
             ('Escape Like', 'escape_like'),
@@ -70,6 +114,7 @@ class StringEncodePaste(sublime_plugin.WindowCommand):
             view.run_command(commands[item], {'source': 'clipboard'})
 
         self.window.show_quick_panel(lines, on_done)
+
 
 class StringEncode(sublime_plugin.TextCommand):
     def run(self, edit, **kwargs):
@@ -101,12 +146,14 @@ class StringEncode(sublime_plugin.TextCommand):
 class Gzip64EncodeCommand(StringEncode):
 
     def encode(self, text):
-        return base64.b64encode(gzip.compress(bytes(text, 'utf-8'))).decode('ascii')
+        return str(base64.b64encode(gzip.compress(bytes(text, 'utf-8'))), 'ascii')
+
 
 class Gzip64DecodeCommand(StringEncode):
 
     def encode(self, text):
-        return gzip.decompress(base64.b64decode(text.rstrip('=') + '===')).decode('utf-8')
+        return str(gzip.decompress(base64.b64decode(pad64(text))), 'utf-8')
+
 
 class UnicodeEscapeCommand(StringEncode):
 
@@ -139,14 +186,14 @@ class HtmlDeentitizeCommand(StringEncode):
         for k in html5_escape_table:
             v = html5_escape_table[k]
             text = text.replace(v, k)
-        while re.search('&#[xX][a-fA-F0-9]+;', text):
-            match = re.search('&#[xX]([a-fA-F0-9]+);', text)
+        while re.search(r'&#[xX][a-fA-F0-9]+;', text):
+            match = re.search(r'&#[xX]([a-fA-F0-9]+);', text)
             text = text.replace(
-                match.group(0), unichr(int('0x' + match.group(1), 16)))
-        while re.search('&#[0-9]+;', text):
-            match = re.search('&#([0-9]+);', text)
+                match.group(0), chr(int('0x' + match.group(1), 16)))
+        while re.search(r'&#[0-9]+;', text):
+            match = re.search(r'&#([0-9]+);', text)
             text = text.replace(
-                match.group(0), unichr(int(match.group(1), 10)))
+                match.group(0), chr(int(match.group(1), 10)))
         text = text.replace('&amp;', '&')
         return text
 
@@ -169,7 +216,7 @@ class CssUnescapeCommand(StringEncode):
         while re.search(r'\\[a-fA-F0-9]+', text):
             match = re.search(r'\\([a-fA-F0-9]+)', text)
             text = text.replace(
-                match.group(0), unichr(int('0x' + match.group(1), 16)))
+                match.group(0), chr(int('0x' + match.group(1), 16)))
         return text
 
 
@@ -200,14 +247,14 @@ class SafeHtmlDeentitizeCommand(StringEncode):
                 continue
             v = html_escape_table[k]
             text = text.replace(v, k)
-        while re.search('&#[xX][a-fA-F0-9]+;', text):
-            match = re.search('&#[xX]([a-fA-F0-9]+);', text)
+        while re.search(r'&#[xX][a-fA-F0-9]+;', text):
+            match = re.search(r'&#[xX]([a-fA-F0-9]+);', text)
             text = text.replace(
-                match.group(0), unichr(int('0x' + match.group(1), 16)))
-        while re.search('&#[0-9]+;', text):
-            match = re.search('&#([0-9]+);', text)
+                match.group(0), chr(int('0x' + match.group(1), 16)))
+        while re.search(r'&#[0-9]+;', text):
+            match = re.search(r'&#([0-9]+);', text)
             text = text.replace(
-                match.group(0), unichr(int(match.group(1), 10)))
+                match.group(0), chr(int(match.group(1), 10)))
         text = text.replace('&amp;', '&')
         return text
 
@@ -269,54 +316,84 @@ class UrlDecodeCommand(StringEncode):
         return unquote_plus(text)
 
 
+class Base16EncodeCommand(StringEncode):
+
+    def encode(self, text):
+        return str(base64.b16encode(bytes(text, 'utf-8')), 'ascii')
+
+
+class Base16DecodeCommand(StringEncode):
+
+    def encode(self, text):
+        return str(base64.b16decode(text), 'utf-8')
+
+
+class Base32EncodeCommand(StringEncode):
+
+    def encode(self, text):
+        return str(base64.b32encode(bytes(text, 'utf-8')), 'ascii')
+
+
+class Base32DecodeCommand(StringEncode):
+
+    def encode(self, text):
+        return str(base64.b32decode(text), 'utf-8')
+
+
 class Base64EncodeCommand(StringEncode):
 
     def encode(self, text):
-        return base64.b64encode(text.encode('raw_unicode_escape')).decode('ascii')
+        return str(base64.b64encode(bytes(text, 'utf-8')), 'ascii')
 
 
 class Base64DecodeCommand(StringEncode):
 
     def encode(self, text):
-        return base64.b64decode(text + '===').decode('raw_unicode_escape')
+        return str(base64.b64decode(pad64(text)), 'utf-8')
 
 
 class Md5EncodeCommand(StringEncode):
 
     def encode(self, text):
-        hasher = hashlib.md5()
-        hasher.update(bytes(text, 'utf-8'))
-        return hasher.hexdigest()
+        return hashlib.md5(bytes(text, 'utf-8')).hexdigest()
+
+
+class Sha1EncodeCommand(StringEncode):
+
+    def encode(self, text):
+        return hashlib.sha1(bytes(text, 'utf-8')).hexdigest()
 
 
 class Sha256EncodeCommand(StringEncode):
 
     def encode(self, text):
-        hasher = hashlib.sha256()
-        hasher.update(bytes(text, 'utf-8'))
-        return hasher.hexdigest()
+        return hashlib.sha256(bytes(text, 'utf-8')).hexdigest()
+
+
+class Sha384EncodeCommand(StringEncode):
+
+    def encode(self, text):
+        return hashlib.sha384(bytes(text, 'utf-8')).hexdigest()
 
 
 class Sha512EncodeCommand(StringEncode):
 
     def encode(self, text):
-        hasher = hashlib.sha512()
-        hasher.update(bytes(text, 'utf-8'))
-        return hasher.hexdigest()
+        return hashlib.sha512(bytes(text, 'utf-8')).hexdigest()
 
 
-class Escaper(StringEncode):
+class EscapeRegexCommand(StringEncode):
+    regex = re.compile(r'(?<!\\)([?\\*.+^$()\[\]\{\}\|])')
 
     def encode(self, text):
-        return re.sub(r'(?<!\\)(%s)' % self.meta, r'\\\1', text)
+        return self.regex.sub(r'\\\1', text)
 
 
-class EscapeRegexCommand(Escaper):
-    meta = r'[?\\*.+^$()\[\]\{\}\|]'
+class EscapeLikeCommand(StringEncode):
+    regex = re.compile(r'(?<!\\)([%_])')
 
-
-class EscapeLikeCommand(Escaper):
-    meta = r'[%_]'
+    def encode(self, text):
+        return self.regex.sub(r'\\\1', text)
 
 
 class HexDecCommand(StringEncode):
